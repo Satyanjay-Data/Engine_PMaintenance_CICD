@@ -1,0 +1,51 @@
+name: Engine_Maintenance_CICD
+
+on:
+push:
+  branches:
+    -main # AUtomatically triggers on push to the main branches
+
+jobs:
+
+  register-dataset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pip instal -r Engine_Maintenance_CICD/requirement.txt
+      - name: Upload Dataset to Hugging Face HfHubHTTPError
+        env:
+          HF_TOKEN: ${{secrets.HF_TOKEN}}
+        run: python Engine_Maintenance_CICD/data_register.py
+
+  data-prep:
+    needs: register-dataset
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+      - name: Run Data Preparation
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python Engine_Maintenance_CICD/model_building/prep.py
+
+
+  model-traning:
+    needs: data-prep
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+      - name: Start MLflow Server
+        run: |
+          nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
+          sleep 5  # Wait for a moment to let the server starts
+      - name: Model Building
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python Engine_Maintenance_CICD/model_building/train.py
+
+
+
