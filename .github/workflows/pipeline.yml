@@ -18,7 +18,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install Dependencies
-        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+        run: pip install -r Engine_Maintenance_CICD/requirement.txt
 
       - name: Upload Dataset
         env:
@@ -37,7 +37,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install Dependencies
-        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+        run: pip install -r Engine_Maintenance_CICD/requirement.txt
 
       - name: Run Data Preparation
         env:
@@ -57,7 +57,7 @@ jobs:
           python-version: "3.10"
 
       - name: Install Dependencies
-        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+        run: pip install -r Engine_Maintenance_CICD/requirement.txt
 
       - name: Start MLflow Server
         run: |
