@@ -13,11 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: pip instal -r engine_maintenance_CICD/requirement.txt
+        run: pip instal -r Engine_PMaintenance_CICD/requirement.txt
       - name: Upload Dataset to Hugging Face HfHubHTTPError
         env:
           HF_TOKEN: ${{secrets.HF_TOKEN}}
-        run: python engine_maintenance_CICD/data_register.py
+        run: python Engine_PMaintenance_CICD/data_register.py
 
     data-prep:
     needs: register-dataset
@@ -25,11 +25,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: pip install -r engine_maintenance_CICD/requirements.txt
+        run: pip install -r Engine_PMaintenance_CICD/requirements.txt
       - name: Run Data Preparation
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python engine_maintenance_CICD/model_building/prep.py
+        run: python Engine_PMaintenance_CICD/model_building/prep.py
 
 
   model-traning:
@@ -38,7 +38,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: pip install -r engine_maintenance_CICD/requirements.txt
+        run: pip install -r Engine_PMaintenance_CICD/requirements.txt
       - name: Start MLflow Server
         run: |
           nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
@@ -46,7 +46,7 @@ jobs:
       - name: Model Building
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python engine_maintenance_CICD/model_building/train.py
+        run: python Engine_PMaintenance_CICD/model_building/train.py
 
 
 
