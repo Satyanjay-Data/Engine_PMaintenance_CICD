@@ -1,9 +1,9 @@
 name: Engine_Maintenance_CICD
 
 on:
-push:
-  branches:
-    -main # AUtomatically triggers on push to the main branches
+  push:
+    branches:
+      - main
 
 jobs:
 
@@ -11,11 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
       - name: Install Dependencies
-        run: pip instal -r Engine_Maintenance_CICD/requirement.txt
-      - name: Upload Dataset to Hugging Face HfHubHTTPError
+        run: pip install -r Engine_Maintenance_CICD/requirements.txt
+
+      - name: Upload Dataset
         env:
-          HF_TOKEN: ${{secrets.HF_TOKEN}}
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python Engine_Maintenance_CICD/data_register.py
 
   data-prep:
@@ -23,25 +30,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
       - name: Install Dependencies
         run: pip install -r Engine_Maintenance_CICD/requirements.txt
+
       - name: Run Data Preparation
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: python Engine_Maintenance_CICD/model_building/prep.py
 
 
-  model-traning:
+  model-training:
     needs: data-prep
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
       - name: Install Dependencies
         run: pip install -r Engine_Maintenance_CICD/requirements.txt
+
       - name: Start MLflow Server
         run: |
-          nohup mlflow ui --host 0.0.0.0 --port 5000 &  # Run MLflow UI in the background
-          sleep 5  # Wait for a moment to let the server starts
+          nohup mlflow ui --host 0.0.0.0 --port 5000 &
+          sleep 5
+
       - name: Model Building
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
