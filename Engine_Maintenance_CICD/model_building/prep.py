@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 from sklearn.model_selection import train_test_split
-from imblearn.over_sampling import SMOTE
+
 
 # Hugging Face API
 from huggingface_hub import HfApi
@@ -62,21 +62,11 @@ Xtrain, Xtest, ytrain, ytest = train_test_split(
 print("\n Train-Test split completed")
 
 # -------------------------
-# Apply SMOTE (only on training data)
-# -------------------------
-smote = SMOTE(random_state=42)
-
-Xtrain_bal, ytrain_bal = smote.fit_resample(Xtrain, ytrain)
-
-print("\n After SMOTE (Balanced):")
-print(pd.Series(ytrain_bal).value_counts())
-
-# -------------------------
 # Save datasets
 # -------------------------
-Xtrain_bal.to_csv("Xtrain.csv", index=False)
+Xtrain.to_csv("Xtrain.csv", index=False)
 Xtest.to_csv("Xtest.csv", index=False)
-pd.Series(ytrain_bal).to_csv("ytrain.csv", index=False)
+ytrain.to_csv("ytrain.csv", index=False)
 ytest.to_csv("ytest.csv", index=False)
 
 print("\n Files saved locally")
