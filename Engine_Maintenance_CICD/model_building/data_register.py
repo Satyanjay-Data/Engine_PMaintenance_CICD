@@ -34,7 +34,7 @@ except RepositoryNotFoundError:
     print(f" Dataset '{repo_id}' created successfully.")
 
 # 🔹 Upload data folder (UPDATED PATH)
-data_folder_path = "/content/Engine_Maintenance_CICD/data"
+data_folder_path = "/Engine_Maintenance_CICD/data"
 
 if not os.path.exists(data_folder_path):
     raise FileNotFoundError(f"Data folder not found at: {data_folder_path}")
