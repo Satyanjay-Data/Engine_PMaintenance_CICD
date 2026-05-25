@@ -18,12 +18,12 @@ jobs:
           python-version: "3.10"
 
       - name: Install Dependencies
-        run: pip install -r Engine_Maintenance_CICD/model_building/requirements.txt
+        run: pip install -r Engine_Maintenance_CICD/requirements.txt
 
       - name: Upload Dataset
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: python Engine_Maintenance_CICD/data_register.py
+        run: python Engine_Maintenance_CICD/model_building/data_register.py
 
 
   data-prep:
