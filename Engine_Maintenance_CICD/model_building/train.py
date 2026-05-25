@@ -49,10 +49,11 @@ ytest = ytest.values.ravel()
 
 # Numeric features
 numeric_features = [
+    'Engine rpm',
     'Lub oil pressure',
     'Fuel pressure',
     'Coolant pressure',
-    'lub oil temp',
+    'Lub oil temp',
     'Coolant temp'
 ]
 
