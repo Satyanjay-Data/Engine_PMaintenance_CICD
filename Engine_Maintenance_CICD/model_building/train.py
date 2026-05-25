@@ -70,11 +70,18 @@ rf_model = RandomForestClassifier(random_state=42)
 xgb_param_grid = {
     'xgbclassifier__n_estimators': [50, 100],
     'xgbclassifier__max_depth': [3, 4],
+    'xgbclassifier__colsample_bytree': [0.4, 0.5, 0.6],
+    'xgbclassifier__colsample_bylevel': [0.4, 0.5, 0.6],
+    'xgbclassifier__learning_rate': [0.01, 0.05, 0.1],
+    'xgbclassifier__reg_lambda': [0.4, 0.5, 0.6],
 }
 
 rf_param_grid = {
     'randomforestclassifier__n_estimators': [100, 200],
     'randomforestclassifier__max_depth': [5, 10],
+    'randomforestclassifier__min_samples_split': [2, 5],
+    'randomforestclassifier__min_samples_leaf': [1, 2],
+    'randomforestclassifier__max_features': ['sqrt', 'log2'],       
 } 
 
 # ✅ FIXED pipelines
