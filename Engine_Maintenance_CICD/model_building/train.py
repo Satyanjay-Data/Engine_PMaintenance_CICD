@@ -1,4 +1,3 @@
-%%writefile /content/Engine_Maintenance_CICD/model_building/train.py
 # for data manipulation
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
