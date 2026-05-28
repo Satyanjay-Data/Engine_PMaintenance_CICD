@@ -85,11 +85,6 @@ y_pred_test = best_model.predict(Xtest)
 train_report = classification_report(ytrain, y_pred_train, output_dict=True)
 test_report = classification_report(ytest, y_pred_test, output_dict=True)
 
-
-
-
-
-
 print("Train Accuracy:", train_report['accuracy'])
 print("Test Accuracy:", test_report['accuracy'])
 print("Train Precision:", train_report['1']['precision'])
@@ -104,10 +99,6 @@ print("Test Recall:", test_report['1']['recall'])
 # Save model
 model_path = "best_model.joblib"
 joblib.dump(best_model, model_path)
-
-# Log model
-mlflow.log_artifact(model_path, artifact_path="model")
-print(f"Model saved as artifact at: {model_path}")
 
 # Upload model
 repo_id = "Satyanjay/engine-condition-monitoring-model"
