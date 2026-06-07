@@ -5,6 +5,13 @@ import os
 from huggingface_hub import hf_hub_download
 
 # -------------------------------
+# UI
+# -------------------------------
+st.set_page_config(page_title="Engine Condition Monitoring", layout="centered")
+st.title("🚗 Engine Condition Monitoring System")
+st.write("Enter engine parameters below to predict condition.")
+
+# -------------------------------
 # Load Model
 # -------------------------------
 @st.cache_resource
@@ -25,13 +32,7 @@ def load_model():
 
 model = load_model()
 
-# -------------------------------
-# UI
-# -------------------------------
-st.set_page_config(page_title="Engine Condition Monitoring", layout="centered")
 
-st.title("🚗 Engine Condition Monitoring System")
-st.write("Enter engine parameters below to predict condition.")
 
 # Input fields
 engine_rpm = st.number_input("Engine RPM", min_value=0.0)
