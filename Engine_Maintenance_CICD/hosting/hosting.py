@@ -6,7 +6,7 @@ import os
 api = HfApi(token=os.getenv("HF_TOKEN"))
 
 api.upload_folder(
-    folder_path="/content/Engine_Maintenance_CICD/deployment",
+    folder_path="/Engine_Maintenance_CICD/deployment",
     repo_id="Satyanjay/Engine-Predictive-Maintenance",
     repo_type="space"
 )
